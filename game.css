@@ -826,3 +826,8 @@ input, select {
     width: unset;
     padding: 0 0.75cqw;
 }
+
+html {
+    -webkit-text-size-adjust: 100%; /* Prevent iOS from auto-adjusting font sizes */
+    text-size-adjust: 100%;         /* Standard version */
+}
