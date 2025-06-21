@@ -232,7 +232,7 @@ function processData(data) {
         if (hostConn === null) {
             let category = categorySelect.value;
             if (category === "random") {
-                category = Object.keys(categories)[Math.floor(Math.random() * Object.keys(categories).length)];
+                category = Object.keys(categories)[Math.floor(Math.random() * (Object.keys(categories).length - 1))];
             }
             data = {type: 'start-all', gameState: newGameState(category)};
         }
@@ -241,7 +241,7 @@ function processData(data) {
         if (hostConn === null) {
             let category = winCategorySelect.value;
             if (category === "random") {
-                category = Object.keys(categories)[Math.floor(Math.random() * Object.keys(categories).length)];
+                category = Object.keys(categories)[Math.floor(Math.random() * (Object.keys(categories).length - 1))];
             }
             data = {type: 'start-all', gameState: nextGameState(category)};
         }
