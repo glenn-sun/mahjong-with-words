@@ -201,6 +201,8 @@ function processData(data) {
         if (data.prevData.type === 'reveal') {
             data = data.prevData;
         } 
+
+        toast("Reconnected, reloading game...");
     }
     if (data.type === 'raise-order') {
         if (hostConn === null) {
