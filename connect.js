@@ -26,6 +26,7 @@ const peer = new Peer();
 let connections = [];
 let votes = [];
 let turnOrderIds = [];
+let prevData;
 
 // Used only for non-host;
 let hostConn = null;
@@ -165,9 +166,13 @@ peer.on('connection', (conn) => {
             displayMessage(`${data.myName} joined the game`);
             displayPlayerOrder(turnOrderIds);
             updateConnectionsText();
+        } else if (data.type === 'get-game-state') {
+            conn.send({type: 'game-state', gameState: GAMESTATE, prevData: prevData});
         } else {
             processData(data);
         }
+
+        prevData = data;
     });
 
     conn.on('close', () => {
@@ -188,6 +193,15 @@ const revealRejectBtn = document.getElementById("reveal-reject-btn");
 const waitingModal = document.getElementById("waiting-modal");
 
 function processData(data) {
+    if (data.type === 'game-state') {
+        GAMESTATE = data.gameState;
+        displayGame();
+        setAvailableActions();
+
+        if (data.prevData.type === 'reveal') {
+            data = data.prevData;
+        } 
+    }
     if (data.type === 'raise-order') {
         if (hostConn === null) {
             let i = turnOrderIds.indexOf(data.player);
@@ -346,7 +360,7 @@ function processData(data) {
     }
 
     if (hostConn === null) {
-        if (['draw', 'discard', 'eat', 'reveal-accept', 'reveal-reject', 'eat-back', 'touch'].includes(data.type)) {
+        if (['draw', 'discard', 'eat', 'reveal-accept', 'reveal-reject', 'eat-back', 'touch', 'strike'].includes(data.type)) {
             data['verifyState'] = GAMESTATE;
         }
         for (let allConn of connections) {
@@ -447,6 +461,7 @@ peer.on('disconnected', () => {
 
     peer.once('open', () => {
         displayMessage(`Reconnection successful`);
+        hostConn.send({type: 'get-game-state'});
     });
     
     peer.reconnect();

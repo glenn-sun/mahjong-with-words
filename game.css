@@ -82,6 +82,10 @@ button .material-symbols-outlined {
     font-size: 5cqw;
 }
 
+#waiting-response .material-symbols-outlined {
+    font-size: 5cqw;
+}
+
 #header {
     display: flex;
     flex-direction: row;
@@ -225,7 +229,7 @@ button .material-symbols-outlined {
     width: 21cqw;
 }
 
-.next-icon > * {
+.next-icon .material-symbols-outlined {
     font-size: 6cqw;
     user-select: none;
 }
