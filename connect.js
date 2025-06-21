@@ -147,7 +147,6 @@ function displayPlayerOrder(ids) {
         }
         newTurnOrder.appendChild(playerLine);
     }
-    console.log(newTurnOrder);
     turnOrder.replaceWith(newTurnOrder);
 }
 
@@ -716,7 +715,6 @@ function setInitialAction(actionType) {
         endActions.firstElementChild.replaceWith(wrapper.firstElementChild);
     }
     if (actionType === 'eat') {
-        console.log('eat');
         let wrapper = document.createElement('div');
         wrapper.innerHTML = `
             <div class="main-button button-inactive">
@@ -727,7 +725,6 @@ function setInitialAction(actionType) {
         endActions.firstElementChild.replaceWith(wrapper.firstElementChild);
     }
     if (actionType === 'touch') {
-        console.log('touch');
         let wrapper = document.createElement('div');
         wrapper.innerHTML = `
             <div class="main-button button-inactive">
@@ -738,7 +735,6 @@ function setInitialAction(actionType) {
         endActions.firstElementChild.replaceWith(wrapper.firstElementChild);
     }
     if (actionType === 'strike') {
-        console.log('strike');
         let wrapper = document.createElement('div');
         wrapper.innerHTML = `
             <div class="main-button button-inactive">

@@ -58,6 +58,7 @@ button {
     background-color: var(--light-gray);
     padding: 1cqw 1cqw;
     cursor: pointer;
+    -webkit-user-select: none;
     user-select: none;
     color: black;
 }
@@ -131,6 +132,7 @@ button .material-symbols-outlined {
     font-size: 6cqw;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
+    -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
 }
@@ -160,6 +162,7 @@ button .material-symbols-outlined {
     justify-content: center;
     align-items: center;
     font-weight: 700;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -173,6 +176,7 @@ button .material-symbols-outlined {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
 }
@@ -231,6 +235,7 @@ button .material-symbols-outlined {
 
 .next-icon .material-symbols-outlined {
     font-size: 6cqw;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -253,6 +258,7 @@ button .material-symbols-outlined {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
 }
@@ -280,6 +286,7 @@ button .material-symbols-outlined {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    -webkit-user-select: none;
     user-select: none;
 }
 
@@ -425,12 +432,13 @@ button .material-symbols-outlined {
 
 #chat {
     height: 140cqw;
-    border: 1px solid #ccc;
+    border: 1px solid var(--med-gray);
     padding: 2cqw;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 2cqw;
+    border-radius: 2cqw;
 }
 
 .message-info {
@@ -499,6 +507,7 @@ button .material-symbols-outlined {
 
 #message-input {
     width: 85%;
+    margin-right: 2cqw;
 }
 
 #help-content {
@@ -513,7 +522,21 @@ button .material-symbols-outlined {
 input, select {
     font: inherit;
     font-size: 4cqw;
-    padding: 1cqw;
+    padding: 1cqw 2cqw;
+    border: 0.25cqw solid var(--med-gray);
+    border-radius: 2cqw;
+}
+
+select {
+    -webkit-appearance: none; /* iOS Safari */
+    -moz-appearance: none; /* Firefox */
+    appearance: none; /* Remove default styles */
+
+    background-color: white;
+    background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='7'><path fill='none' stroke='%23333' stroke-width='2' d='M1 1l5 5 5-5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1cqw center;
+    background-size: 3cqw auto;
 }
 
 #start {
@@ -662,7 +685,7 @@ input, select {
     justify-content: center;
 }
 
-#eat-back {
+#eat-back .material-symbols-outlined, #win-back .material-symbols-outlined {
     font-size: 6cqw;
 }
 
