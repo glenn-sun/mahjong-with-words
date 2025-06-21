@@ -832,6 +832,6 @@ input, select {
 }
 
 html {
-    -webkit-text-size-adjust: 100%; /* Prevent iOS from auto-adjusting font sizes */
-    text-size-adjust: 100%;         /* Standard version */
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
 }
