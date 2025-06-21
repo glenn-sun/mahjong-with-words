@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahjong with Words</title>
+    <link rel="stylesheet" href="game.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=autorenew,chat,check,close,content_copy,help,keyboard_arrow_down,keyboard_arrow_up,keyboard_double_arrow_right,login,play_arrow,send,undo" />
+
+    <script src="categories.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <div id="header">
+            <div>
+                <div id="game-title">Mahjong with Words</div>
+                <div id="category-title"></div>
+            </div>
+            <div>
+                <div id="chat-btn-container">
+                    <button id="chat-btn">
+                        <span class="material-symbols-outlined">chat</span>
+                    </button>
+                    <span id="notification-dot" class="disabled"></span>
+                </div>
+                
+                <button id="help-btn">
+                    <span class="material-symbols-outlined">help</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="non-header " id="start">
+            <div id="connection-status">Loading...</div>
+
+            <input type="text" id="nickname-input" placeholder="Your name" class="disabled">
+            <button id="nickname-btn" class="disabled"><span class="material-symbols-outlined">login</span> Join room</button>
+            <button id="share-link" class="disabled"><span class="material-symbols-outlined">content_copy</span> Copy room link</button>
+            
+            <div id="category-area" class="disabled">
+                <label for="category-select" id="category-label">Select game category: <span class="material-symbols-outlined fade">autorenew</span></label>
+                <select id="category-select">
+                </select>
+            </div>
+
+            <div id="turn-order-area" class="disabled">
+                <div id="turn-order-label">Game turn order: <span class="material-symbols-outlined fade">autorenew</span></div>
+                <div id="turn-order"></div>
+            </div>
+          
+            <div id="start-area" class="disabled">
+                <div style="text-align:center;max-width:95%"><em>Disconnections will not live update, please verify that all players are present before starting.</em></div>
+                <div id="connected-players"><span id="connected-players-count">0/4 connected</span> <span class="material-symbols-outlined fade">autorenew</span></div>
+                <button id="start-btn" class="button-inactive"><span class="material-symbols-outlined">play_arrow</span> Start</button>
+            </div>
+        </div>
+
+        <div class="non-header disabled" id="game">
+            <div id="board-ui">
+                <div id="ui-top-row"></div>
+    
+                <div id="ui-history"></div>
+    
+                <div id="ui-bottom-row"></div>
+            </div>
+        
+            
+            <div class="action-tray" id="main-actions">
+                <div class="main-button button-inactive" id="draw">
+                    <div class="button-icon">摸</div>
+                    <div class="button-text">DRAW</div>
+                </div>
+                <div class="main-button button-inactive" id="eat">
+                    <div class="button-icon">吃</div>
+                    <div class="button-text">EAT</div>
+                </div>
+                <div class="main-button button-inactive" id="touch">
+                    <div class="button-icon">碰</div>
+                    <div class="button-text">TOUCH</div>
+                </div>
+                <div class="main-button button-inactive" id="strike">
+                    <div class="button-icon">杠</div>
+                    <div class="button-text">STRIKE</div>
+                </div>
+            </div>
+        
+            <div class="action-tray disabled" id="end-actions">
+                <div class="main-button button-inactive">
+                    <div class="button-icon">摸</div>
+                    <div class="button-text">DRAW</div>
+                </div>
+                <div class="next-icon">
+                    <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+                </div>
+                <div class="main-button" id="discard">
+                    <div class="button-icon">打</div>
+                    <div class="button-text">DISCARD</div>
+                </div>
+                <div class="main-button" id="win">
+                    <div class="button-icon small">和</div>
+                    <div class="button-text small"><span>DECLARE</span><br><span>WIN</span></div>
+                </div>
+            </div>
+            <div class="action-tray disabled" id="eat-actions">
+                <div class="main-button button-inactive">
+                    <div class="button-icon">吃</div>
+                    <div class="button-text">EAT</div>
+                </div>
+                <div class="next-icon">
+                    <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+                </div>
+                <div class="main-button" id="reveal">
+                    <div class="button-icon">亮</div>
+                    <div class="button-text">REVEAL</div>
+                </div>
+                <div class="back-button-container" id="eat-back">
+                    <div class="back-button">
+                        <span class="material-symbols-outlined">undo</span>
+                    </div>
+                </div>
+            </div>
+            <div class="action-tray disabled" id="declare-win-actions">
+                <div class="main-button button-inactive">
+                    <div class="button-icon small">和</div>
+                    <div class="button-text small"><span>DECLARE</span><br><span>WIN</span></div>
+                </div>
+                <div class="next-icon">
+                    <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+                </div>
+                <div class="main-button" id="reveal-win">
+                    <div class="button-icon">亮</div>
+                    <div class="button-text">REVEAL</div>
+                </div>
+                <div class="back-button-container" id="win-back">
+                    <div class="back-button">
+                        <span class="material-symbols-outlined">undo</span>
+                    </div>
+                </div>
+            </div>
+            <div id="reveal-tray">
+                
+            </div>
+            
+            <div id="tile-tray">
+                <!-- <div class="tile">A</div> -->
+            </div>
+        </div>
+
+        <div id="chat-modal" class="modal disabled">
+            <div id="chat-area" class="modal-content">
+                <div id="chat-header">
+                    <div id="chat-title">Chat</div>
+                    <button id="chat-close">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div id="chat"></div>
+                <div id="chat-input-area">
+                    <input type="text" id="message-input" placeholder="Chat message">
+                    <button id="send-btn">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="help-modal" class="modal disabled">
+            <div id="help-area" class="modal-content">
+                <div id="help-header">
+                    <div id="help-title">Help</div>
+                    <button id="help-close">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div id="help-content">
+
+<p>Mahjong with Words is very much like classic Chinese or Japanese mahjong, but with words!</p>
+
+<h2>Setup and Goals</h2>
+
+<p>A deck of cards has:</p>
+
+<ul>
+    <li>21 consonants x 4</li>
+    <li>5 vowels x 8</li>
+    <li>4 wildcards</li>
+</ul>
+
+<p>There are a total of 128 cards, and players maintain 13-card hands.</p>
+
+<p>The goal of the game to form a hand that consists exclusively of below sets:</p>
+
+<ul>
+    <li>English words (at least 3 letters) from a chosen category</li>
+    <li>Strikes (4-of-a-kind, consonants only)</li>
+    <li>Triples (3-of-a-kind, consonants only)</li>
+    <li>Pairs (2-of-a-kind, consonants only)</li>
+</ul>
+
+<p>A final hand has 14 cards, except strikes count as 3 cards.</p>
+
+<h2>Main Gameplay Loop</h2>
+
+<p>On your turn, do one of the following:</p>
+
+<ul>
+    <li>Draw a card. </li>
+    <li>Eat the previous player's discard, taking it and completing a word with other cards in your hand. Reveal the word. You can only eat when it completes a word.</li>
+    <li>Touch the discard, completing 3-of-a-kind with 2 cards in your hand. Reveal the set. You can only touch consonants.</li>
+    <li>Strike the discard, completing 4-of-a-kind with 3 cards in your hand. Reveal the set. You can only strike consonants. Then, draw a card. This is called a revealed strike. </li>
+</ul>
+
+<p>You may also interrupt the play order at any time to touch or strike another player's discard. This counts as a turn, and play continues after you, skipping any players who were interrupted.</p>
+
+<p>At the end of every turn, you must either discard a card or declare victory. To declare victory, reveal your hand one word/set at a time. Your hand must entirely consist of words, strikes, triples, and pairs.</p>
+
+<p>Wildcards can be used as any letter to complete a word, but are not valid in pairs, triples, or strikes.</p>
+
+<h2>Scoring</h2>
+
+<p>At the end of the game, all players give money to the winner. The base amount of money given is the value of the winning hand, calculated as follows:</p>
+
+<ul>
+    <li>$3 for every word, then +$2 per letter over 3</li>
+    <li>$20 for every hidden strike</li>
+    <li>$10 for every revealed strike</li>
+    <li>$3 for every triple</li>
+    <li>$1 for every pair</li>
+    <li>$13 bonus for two 7-letter words</li>
+    <li>$18 bonus for seven pairs</li>
+</ul>
+
+<p>Additionally, the following modifications are made for all transactions:</p>
+
+<ul>
+    <li>x2 whenever interacting with the person who played or drew the winning card.</li>
+    <li>x2 whenever interacting with the dealer. The dealer is marked with a <div class="player-dealer" style="display: inline-block; vertical-align: middle;"></div> symbol.</li>
+</ul>
+
+<h2>Word Categories</h2>
+
+<p>A word category must be selected to play the game. Some suggested options are available, but you are free to choose your own. The more words in the category, and the shorter the words, the easier the game. </p>
+
+<p>The determination of whether or not a word belongs to a category is done by popular vote. The three players who did not reveal the word can object to the word being played. If two of the three object, the word is not played and the letters are returned to the original player. </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="reveal-modal" class="modal disabled">
+            <div id="reveal-area" class="modal-content">
+                <div id="reveal-title"></div>
+                <div id="reveal-words"></div>
+                <div id="reveal-response">
+                    <button id="reveal-accept-btn">
+                        <span class="material-symbols-outlined">check</span> Accept
+                    </button>
+                    <button id="reveal-reject-btn">
+                        <span class="material-symbols-outlined">close</span> Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="final-hand-modal" class="modal disabled">
+            <div id="final-hand-area" class="modal-content">
+                <div id="final-hand-title">Final Hand</div>
+                <div id="final-hand">
+                    
+                </div>
+                <div id="final-hand-response">
+                    <button id="final-hand-submit-btn">
+                        <span class="material-symbols-outlined">check</span> Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="waiting-modal" class="modal disabled">
+            <div id="waiting-area" class="modal-content">
+                <div id="waiting-title">Waiting for voting to conclude...</div>
+                <div id="waiting-response">
+                    <span class="material-symbols-outlined fade">autorenew</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="win-modal" class="modal disabled">
+            <div id="win-area" class="modal-content">
+                <div id="win-title">Round summary</div>
+                <div id="win-content">
+                <div id="win-winner"><span id="win-winner-name"></span> won the round!</div>
+                <div id="win-standings">
+                    
+                </div>
+                <div id="win-category-area">
+                    <label for="win-category-select" id="win-category-label">Select next category: <span class="material-symbols-outlined fade">autorenew</span></label>
+                    <select id="win-category-select">
+                    </select>
+                </div>
+                <div id="win-next-dealer">
+                    <span id="win-next-dealer-name"></span> will be the next dealer.
+                </div>
+                <button id="restart-btn"><span class="material-symbols-outlined">play_arrow</span> Next round</button>
+                <div id="score-calculation">
+                    <div id="score-calculation-title">Score Calculation</div>
+                    <div id="hand-value-calculation">
+                        
+                    </div>
+                    <div id="multipliers-list">
+
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast-container" class="disabled">
+            <div id="toast-msg"></div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="connect.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="sort.js"></script>
+    
+    <script src="ui.js"></script>
+</body>
+</html>
