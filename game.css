@@ -218,12 +218,16 @@ button .material-symbols-outlined {
 }
 
 .next-icon {
-    font-size: 6cqw;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 21cqw;
     width: 21cqw;
+}
+
+.next-icon > * {
+    font-size: 6cqw;
+    user-select: none;
 }
 
 .back-button-container {
