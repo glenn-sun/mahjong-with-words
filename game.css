@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'ZhiMangXing';
-    src: url('/resources/ZhiMangXing.ttf') format('truetype');
+    src: url('./resources/ZhiMangXing.ttf') format('truetype');
 }
 
 * {
