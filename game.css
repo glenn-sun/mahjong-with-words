@@ -511,7 +511,7 @@ button .material-symbols-outlined {
 }
 
 #help-content {
-    height: 165cqw;
+    height: 160cqw;
     overflow-y: scroll;
 }
 
@@ -728,7 +728,7 @@ select {
 }
 
 #win-content {
-    height: 165cqw;
+    height: 160cqw;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
