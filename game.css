@@ -525,6 +525,7 @@ input, select {
     padding: 1cqw 2cqw;
     border: 0.25cqw solid var(--med-gray);
     border-radius: 2cqw;
+    color: black;
 }
 
 select {
