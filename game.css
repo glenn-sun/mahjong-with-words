@@ -861,4 +861,5 @@ select {
 html {
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
+    touch-action: pan-x pan-y;
 }
