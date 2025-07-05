@@ -20,13 +20,7 @@ const toastMsg = document.getElementById("toast-msg");
 const turnOrderArea = document.getElementById("turn-order-area");
 const winCategorySelect = document.getElementById("win-category-select");
 
-const peer = new Peer({
-    config: {
-        iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' }
-        ]
-    }
-});
+const peer = new Peer();
 
 // Used only for host
 let connections = [];
