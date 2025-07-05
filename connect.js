@@ -20,7 +20,40 @@ const toastMsg = document.getElementById("toast-msg");
 const turnOrderArea = document.getElementById("turn-order-area");
 const winCategorySelect = document.getElementById("win-category-select");
 
-const peer = new Peer();
+const peer = new Peer({
+    debug: 3,
+    config: {
+        iceServers: [
+            {
+                urls: "stun:stun.relay.metered.ca:80",
+            },
+            {
+                urls: "turn:global.relay.metered.ca:80",
+                username: "a1e45e4e8935fcc85c039865",
+                credential: "mdrQ2N6hg2iG98nG",
+            },
+            {
+                urls: "turn:global.relay.metered.ca:80?transport=tcp",
+                username: "a1e45e4e8935fcc85c039865",
+                credential: "mdrQ2N6hg2iG98nG",
+            },
+            {
+                urls: "turn:global.relay.metered.ca:443",
+                username: "a1e45e4e8935fcc85c039865",
+                credential: "mdrQ2N6hg2iG98nG",
+            },
+            {
+                urls: "turns:global.relay.metered.ca:443?transport=tcp",
+                username: "a1e45e4e8935fcc85c039865",
+                credential: "mdrQ2N6hg2iG98nG",
+            },
+        ],
+    }
+});
+
+peer.on('error', (err) => {
+    console.error(err);
+});
 
 // Used only for host
 let connections = [];
@@ -114,6 +147,15 @@ function joinRoom(roomId) {
             }
         });
     });
+
+    hostConn.on('close', () => {
+        console.warn('Connection closed.');
+    });
+
+    hostConn.on('error', (err) => {
+        console.error('Connection error:', err);
+    });
+
 }
 
 function displayPlayerOrder(ids) {
