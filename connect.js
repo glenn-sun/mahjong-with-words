@@ -1246,7 +1246,7 @@ function showWin(playerID, finalHandWords) {
                 </div>
             `;
         } else if (word.length === 4 && word.every(ltr => !"AEIOU".includes(ltr) && ltr === word[0])) {
-            score += 4;
+            score += 10;
             handValueCalculationInnerHTML += `
                 <div class="word-value">
                     <div class="word-container">
@@ -1338,7 +1338,7 @@ function showWin(playerID, finalHandWords) {
                 </div>
             `;
         } else if (word.length === 4 && word.every(ltr => !"AEIOU".includes(ltr) && ltr === word[0])) {
-            score += 4;
+            score += 20;
             handValueCalculationInnerHTML += `
                 <div class="word-value">
                     <div class="word-container">
